@@ -65,7 +65,7 @@ public class NavigationNodeAnalyzer {
   ) {
     node.addEventHandler(
       MouseEvent.MOUSE_CLICKED,
-      _ -> navigationConsumer.accept(route.name())
+      event -> navigationConsumer.accept(route.name())
     );
   }
 

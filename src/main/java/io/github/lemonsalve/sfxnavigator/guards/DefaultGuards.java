@@ -11,7 +11,7 @@ public abstract class DefaultGuards {
   @Contract(" -> new")
   public static @NotNull RouteGuard unprotected() {
     return new RouteGuard(
-      (_, nextRoute) -> nextRoute
+      (context, nextRoute) -> nextRoute
     );
   }
 }
