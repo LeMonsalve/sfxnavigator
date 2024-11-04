@@ -1,10 +1,9 @@
-package io.github.lemonsalve.sfxnavigator;
+package io.github.lemonsalve.sfxnavigator.contexts;
 
 import io.github.lemonsalve.sfxnavigator.routes.RouteHistory;
-import org.springframework.context.ConfigurableApplicationContext;
 
 public record NavigationContext(
-  ConfigurableApplicationContext springContext,
+  ApplicationContext appContext,
   RoutesContext routesContext,
   RouteHistory routeHistory
 ) {

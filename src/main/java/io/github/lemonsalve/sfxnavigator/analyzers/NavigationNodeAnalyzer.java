@@ -1,6 +1,6 @@
 package io.github.lemonsalve.sfxnavigator.analyzers;
 
-import io.github.lemonsalve.sfxnavigator.RoutesContext;
+import io.github.lemonsalve.sfxnavigator.contexts.RoutesContext;
 import io.github.lemonsalve.sfxnavigator.routes.Route;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,9 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.stereotype.Component;
 
-@Component
 public class NavigationNodeAnalyzer {
 
   private static final String NAVIGATE_TO_PREFIX = "navigateTo";

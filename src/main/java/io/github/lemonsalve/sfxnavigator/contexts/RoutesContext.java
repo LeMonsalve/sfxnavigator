@@ -1,6 +1,5 @@
-package io.github.lemonsalve.sfxnavigator;
+package io.github.lemonsalve.sfxnavigator.contexts;
 
-import io.github.lemonsalve.sfxnavigator.configurators.RoutesContextConfigurator;
 import io.github.lemonsalve.sfxnavigator.exceptions.RouteNotFoundException;
 import io.github.lemonsalve.sfxnavigator.routes.Route;
 import io.github.lemonsalve.sfxnavigator.utils.RouteFinder;
@@ -8,15 +7,13 @@ import java.util.List;
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.springframework.stereotype.Component;
 
-@Component
 public class RoutesContext {
 
   private final List<Route> routes;
 
-  public RoutesContext(final RoutesContextConfigurator configurator) {
-    this.routes = configurator.setupRoutes();
+  public RoutesContext(final List<Route> routes) {
+    this.routes = routes;
   }
 
   public Route findRoute(final @NotNull String routeName) {

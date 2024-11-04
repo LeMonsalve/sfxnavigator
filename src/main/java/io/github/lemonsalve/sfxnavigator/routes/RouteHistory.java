@@ -1,9 +1,7 @@
 package io.github.lemonsalve.sfxnavigator.routes;
 
 import java.util.Stack;
-import org.springframework.stereotype.Component;
 
-@Component
 public class RouteHistory {
 
   private final Stack<String> routeHistory = new Stack<>();

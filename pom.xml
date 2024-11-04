@@ -6,19 +6,6 @@
   <build>
     <plugins>
       <plugin>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <exclude>
-              <artifactId>lombok</artifactId>
-              <groupId>org.projectlombok</groupId>
-            </exclude>
-          </excludes>
-        </configuration>
-        <groupId>org.springframework.boot</groupId>
-      </plugin>
-
-      <plugin>
         <artifactId>central-publishing-maven-plugin</artifactId>
         <configuration>
           <autoPublish>true</autoPublish>
@@ -79,30 +66,9 @@
 
   <dependencies>
     <dependency>
-      <artifactId>spring-boot-starter-actuator</artifactId>
-      <groupId>org.springframework.boot</groupId>
-    </dependency>
-
-    <dependency>
-      <artifactId>spring-boot-devtools</artifactId>
-      <groupId>org.springframework.boot</groupId>
-      <optional>true</optional>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-      <groupId>org.springframework.boot</groupId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
       <artifactId>lombok</artifactId>
       <groupId>org.projectlombok</groupId>
       <optional>true</optional>
-    </dependency>
-    <dependency>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <groupId>org.springframework.boot</groupId>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <artifactId>annotations</artifactId>
@@ -113,12 +79,13 @@
     <dependency>
       <artifactId>javafx-fxml</artifactId>
       <groupId>org.openjfx</groupId>
-      <version>22.0.1</version>
+      <scope>compile</scope>
+      <version>22</version>
     </dependency>
   </dependencies>
 
   <description>
-    sfx-navigator provides a navigation system to integrate with javafx and springboot
+    sfx-navigator provides a navigation system to javafx
   </description>
 
   <developers>
@@ -163,5 +130,5 @@
   </scm>
 
   <url>https://github.com/LeMonsalve/sfxnavigator</url>
-  <version>0.0.2-BETA</version>
+  <version>0.0.4-BETA</version>
 </project>

@@ -1,43 +1,47 @@
 package io.github.lemonsalve.sfxnavigator;
 
 import io.github.lemonsalve.sfxnavigator.analyzers.NavigationNodeAnalyzer;
+import io.github.lemonsalve.sfxnavigator.contexts.ApplicationContext;
+import io.github.lemonsalve.sfxnavigator.contexts.NavigationContext;
+import io.github.lemonsalve.sfxnavigator.contexts.RoutesContext;
 import io.github.lemonsalve.sfxnavigator.exceptions.RouteRendererNotFoundException;
 import io.github.lemonsalve.sfxnavigator.exceptions.SceneCreationFailedException;
 import io.github.lemonsalve.sfxnavigator.routes.Route;
 import io.github.lemonsalve.sfxnavigator.routes.RouteConfiguration;
 import io.github.lemonsalve.sfxnavigator.routes.RouteHistory;
 import java.io.IOException;
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.stereotype.Component;
 
-@Component
 public class Navigator {
 
-  private Class<?> fxAppClass;
-  private ConfigurableApplicationContext springContext;
-  private RouteHistory routeHistory;
-  private RoutesContext routesContext;
-  private NavigationNodeAnalyzer navigationNodeAnalyzer;
+  private final ApplicationContext appContext;
+  private final RouteHistory routeHistory;
+  private final RoutesContext routesContext;
+  private final NavigationNodeAnalyzer navigationNodeAnalyzer;
+  private final Class<Application> fxAppClass;
   private Stage primaryStage;
 
-  public void init(
-    final Class<?> fxAppClass,
-    final @NotNull ConfigurableApplicationContext springContext
+  public Navigator(
+    final ApplicationContext appContext,
+    final RouteHistory routeHistory,
+    final RoutesContext routesContext,
+    final NavigationNodeAnalyzer navigationNodeAnalyzer,
+    final Class<Application> fxAppClass
   ) {
+    this.appContext = appContext;
+    this.routeHistory = routeHistory;
+    this.routesContext = routesContext;
+    this.navigationNodeAnalyzer = navigationNodeAnalyzer;
     this.fxAppClass = fxAppClass;
-    this.springContext = springContext;
-    this.routeHistory = springContext.getBean(RouteHistory.class);
-    this.routesContext = springContext.getBean(RoutesContext.class);
-    this.navigationNodeAnalyzer = springContext.getBean(NavigationNodeAnalyzer.class);
   }
 
-  public void initStage(final Stage stage) {
+  public void init(final Stage stage) {
     this.primaryStage = stage;
   }
 
@@ -149,12 +153,12 @@ public class Navigator {
   @Contract("_ -> new")
   private @NotNull FXMLLoader getFXMLLoader(final @NotNull Route route) {
     final FXMLLoader loader = new FXMLLoader(fxAppClass.getResource(route.path()));
-    loader.setControllerFactory(springContext::getBean);
+    loader.setControllerFactory(appContext::getBean);
     return loader;
   }
 
   public NavigationContext getNavigationContext() {
-    return new NavigationContext(springContext, routesContext, routeHistory);
+    return new NavigationContext(appContext, routesContext, routeHistory);
   }
 
   private void setWindowTitle(final String title) {
