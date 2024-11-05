@@ -24,7 +24,7 @@ public class Navigator {
   private final RouteHistory routeHistory;
   private final RoutesContext routesContext;
   private final NavigationNodeAnalyzer navigationNodeAnalyzer;
-  private final Class<Application> fxAppClass;
+  private final Class<? extends Application> fxAppClass;
   private Stage primaryStage;
 
   public Navigator(
@@ -32,7 +32,7 @@ public class Navigator {
     final RouteHistory routeHistory,
     final RoutesContext routesContext,
     final NavigationNodeAnalyzer navigationNodeAnalyzer,
-    final Class<Application> fxAppClass
+    final Class<? extends Application> fxAppClass
   ) {
     this.appContext = appContext;
     this.routeHistory = routeHistory;
