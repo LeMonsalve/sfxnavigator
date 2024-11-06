@@ -25,6 +25,7 @@ public class Navigator {
   private final RoutesContext routesContext;
   private final NavigationNodeAnalyzer navigationNodeAnalyzer;
   private final Class<? extends Application> fxAppClass;
+  private String currentParentRoute = null;
   private Stage primaryStage;
 
   public Navigator(
@@ -46,7 +47,10 @@ public class Navigator {
   }
 
   public void navigateTo(final @NotNull String routeName) {
-    Route actualParentRoute;
+    if (!routeHistory.getHistory().isEmpty() && routeHistory.getCurrent().equals(routeName)) {
+      return;
+    }
+
     Route route = routesContext.findRoute(routeName);
     Route nextRoute = executeGuard(route);
 
@@ -57,23 +61,22 @@ public class Navigator {
 
     final Route parentRoute = routesContext.findParentRoute(nextRoute.name());
     if (parentRoute == null) {
+      currentParentRoute = null;
       loadBaseRoute(route);
       return;
     }
 
     final Route parentNextRoute = executeGuard(parentRoute);
 
-    if (
-      !parentNextRoute.equals(parentRoute)
-        && !routeHistory.getHistory().contains(parentNextRoute.name())
-    ) {
+    if (!parentNextRoute.equals(parentRoute)
+      && !routeHistory.getHistory().contains(parentNextRoute.name())) {
       navigateTo(parentNextRoute.name());
       return;
     }
 
-    actualParentRoute = parentRoute;
-    if (!actualParentRoute.equals(nextRoute)) {
+    if (!parentRoute.name().equals(currentParentRoute)) {
       loadParentRoute(parentRoute);
+      currentParentRoute = parentRoute.name();
     }
 
     loadChildRoute(nextRoute);
