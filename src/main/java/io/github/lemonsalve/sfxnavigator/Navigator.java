@@ -12,6 +12,7 @@ import io.github.lemonsalve.sfxnavigator.routes.RouteHistory;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -121,7 +122,7 @@ public class Navigator {
           "No BorderPane with id '" + "routeRenderer" + "' found in the parent scene."
         );
       }
-      final BorderPane childPane = loader.load();
+      final Node childPane = loader.load();
       parentRoot.setCenter(childPane);
     } catch (IOException e) {
       throw new SceneCreationFailedException("Failed to create child scene", e);
